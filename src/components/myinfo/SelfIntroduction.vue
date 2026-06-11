@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="typewriter-box">
-                <div class="content-card" style="height: 30%;">
+                <div class="content-card content-card-advantage">
                     <h2 class="section-main-title">🌟 个人优势</h2>
                     <ul class="advantage-list">
                         <li><strong>3年工业数字化前端深耕：</strong> 具备独立负责大型项目全流程开发能力，注重交付质量。</li>
@@ -45,7 +45,7 @@
                         <li><strong>团队赋能：</strong> 具备良好的代码规范意识，善于封装高复用业务组件，提升团队迭代效率。</li>
                     </ul>
                 </div>
-                <div class="content-card" style="height: calc(70% - 20px);">
+                <div class="content-card content-card-experience">
                     <h2 class="section-main-title">💼 工作经历</h2>
                     <div class="timeline">
                         <div class="timeline-item">
@@ -161,15 +161,19 @@ onMounted(() => {
     height: 100%;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .hero-content {
     padding: 35px;
     width: 95%;
+    max-width: 1440px;
     display: flex;
     height: 95%;
+    gap: 0;
 
     .hero-info {
+        overflow-y: auto;
         width: 28%;
         height: 95%;
         max-width: 500px;
@@ -304,18 +308,34 @@ onMounted(() => {
         }
     }
 
+    .hero-info::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .hero-info::-webkit-scrollbar-track {
+        background: #ffffff85;
+    }
+
+    .hero-info::-webkit-scrollbar-thumb {
+        background: #818181a8;
+        border-radius: 5px;
+    }
+
     .typewriter-box {
         padding: 0 2rem;
-        width: 80%;
+        flex: 1;
+        min-width: 0;
         height: 95%;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: left;
         justify-content: space-between;
+        gap: 20px;
 
         .content-card {
             width: 100%;
+            min-height: 0;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.7);
@@ -327,6 +347,14 @@ onMounted(() => {
             border-radius: 16px;
             padding: 2rem;
             overflow-y: auto;
+        }
+
+        .content-card-advantage {
+            flex: 0 0 30%;
+        }
+
+        .content-card-experience {
+            flex: 1;
         }
 
         .content-card::-webkit-scrollbar {
@@ -461,5 +489,216 @@ onMounted(() => {
 .hero-content.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ==========================================================================
+   响应式布局 — 平板 / 手机多端适配
+   ========================================================================== */
+
+/* 平板：收窄侧栏，缩小间距 */
+@media (max-width: 1200px) {
+    .hero-content {
+        padding: 24px 16px;
+        width: 98%;
+    }
+
+    .hero-content .hero-info {
+        width: 32%;
+        padding: 1.5rem 1rem;
+    }
+
+    .hero-content .typewriter-box {
+        padding: 0 1rem;
+    }
+
+    .hero-content .typewriter-box .content-card {
+        padding: 1.5rem;
+    }
+}
+
+/* 小平板 / 大手机：改为纵向堆叠 */
+@media (max-width: 968px) {
+    .content-layout {
+        height: auto;
+        overflow: visible;
+        align-items: stretch;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        height: auto;
+        padding: 16px 12px 24px;
+        width: 100%;
+        gap: 16px;
+    }
+
+    .hero-content .hero-info {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        max-height: none;
+        overflow-y: visible;
+        padding: 1.5rem 1.25rem;
+    }
+
+    .hero-content .typewriter-box {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        gap: 16px;
+        justify-content: flex-start;
+    }
+
+    .hero-content .typewriter-box .content-card {
+        flex: none;
+        height: auto;
+        max-height: none;
+        padding: 1.25rem;
+    }
+
+    .hero-content .typewriter-box .content-card-advantage,
+    .hero-content .typewriter-box .content-card-experience {
+        flex: none;
+    }
+
+    .hero-content .typewriter-box .timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+
+    .hero-content .typewriter-box .company {
+        font-size: 0.95rem;
+    }
+}
+
+/* 手机端：进一步压缩间距与字号 */
+@media (max-width: 576px) {
+    .hero-content {
+        padding: 12px 10px 20px;
+        gap: 12px;
+    }
+
+    .hero-content .hero-info {
+        padding: 1.25rem 1rem;
+        border-radius: 12px;
+
+        .avatar-wrapper {
+            width: 88px;
+            height: 88px;
+            margin-bottom: 1rem;
+        }
+
+        .user-name {
+            font-size: 1.35rem;
+            letter-spacing: 1px;
+        }
+
+        .user-meta {
+            font-size: 0.8rem;
+        }
+
+        .job-intent {
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+        }
+
+        .resume-btn {
+            margin-top: 1rem;
+            padding: 0.55rem;
+            font-size: 0.9rem;
+        }
+
+        .divider {
+            margin: 1.2rem 0;
+        }
+
+        .skill-title {
+            font-size: 0.82rem;
+        }
+
+        .skill-tag {
+            font-size: 0.72rem;
+            padding: 0.2rem 0.5rem;
+        }
+    }
+
+    .hero-content .typewriter-box {
+        gap: 12px;
+
+        .content-card {
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .section-main-title {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .advantage-list {
+            padding-left: 1rem;
+        }
+
+        .advantage-list li {
+            font-size: 0.85rem;
+            line-height: 1.65;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline {
+            padding-left: 1.2rem;
+        }
+
+        .timeline-dot {
+            left: calc(-1.2rem - 6px);
+            width: 8px;
+            height: 8px;
+        }
+
+        .timeline-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .time-range {
+            font-size: 0.78rem;
+        }
+
+        .company {
+            font-size: 0.9rem;
+        }
+
+        .role {
+            font-size: 0.82rem;
+        }
+
+        .timeline-body {
+            font-size: 0.85rem;
+            line-height: 1.55;
+        }
+
+        .achievement-list {
+            padding-left: 1rem;
+        }
+
+        .achievement-list li {
+            font-size: 0.85rem;
+        }
+    }
+}
+
+/* 触控设备：取消 hover 位移，避免误触残留 */
+@media (hover: none) {
+    .hero-content .hero-info .resume-btn:hover {
+        transform: none;
+    }
+
+    .hero-content .hero-info .skill-tag:hover {
+        transform: none;
+    }
 }
 </style>

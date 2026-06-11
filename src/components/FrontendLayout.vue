@@ -12,17 +12,41 @@
                     <h2 style="font-size: 18px; color: var(--text-secondary);">hello~ 欢迎来到我的空间！</h2>
                 </div>
                 <div class="mode-btns">
-                    <div class="nav-container">
-                        <div class="nav-item  active" @click="goTo('hero')">首页</div>
-                        <div class="nav-item" @click="goTo('project')">项目介绍</div>
-                        <!-- <div class="nav-item" @click="goTo('work')">工作经历</div> -->
-                        <!-- <div class="nav-item" @click="goTo('skill')">技能列表</div> -->
-                        <div class="nav-item" @click="goTo('about')">关于我</div>
+                    <div class="nav-container nav-desktop">
+                        <div
+                            v-for="item in navLinks"
+                            :key="item.id"
+                            class="nav-item"
+                            :class="{ active: activeNav === item.id }"
+                            @click="goTo(item.id)"
+                        >
+                            {{ item.label }}
+                        </div>
                     </div>
+                    <el-dropdown class="nav-mobile" trigger="click" @command="handleMobileCommand">
+                        <span class="nav-dropdown-trigger">
+                            <el-icon :size="22"><Menu /></el-icon>
+                        </span>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item
+                                    v-for="item in navLinks"
+                                    :key="item.id"
+                                    :command="item.id"
+                                    :class="{ 'is-active': activeNav === item.id }"
+                                >
+                                    {{ item.label }}
+                                </el-dropdown-item>
+                                <el-dropdown-item divided command="toggle-theme">
+                                    {{ isDarkMode ? '☀️ 浅色模式' : '🌙 深色模式' }}
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
                 </div>
 
-                <!-- TODO:切换四季背景按钮 -->
-                <div class="mode-toggle" @click="toggleDarkMode">
+                <!-- 桌面端主题切换 -->
+                <div class="mode-toggle mode-toggle-desktop" @click="toggleDarkMode">
                     {{ isDarkMode ? '☀️' : '🌙' }}
                 </div>
             </div>
@@ -52,6 +76,15 @@ import ProjectIntrodct from './myinfo/ProjectIntrodct.vue'
 import MyExperience from './myinfo/MyExperience.vue'
 import ParticlesCanvas from './myinfo/ParticlesCanvas.vue'
 
+// 导航项
+const navLinks = [
+    { id: 'hero', label: '首页' },
+    { id: 'project', label: '项目介绍' },
+    { id: 'about', label: '关于我' },
+]
+
+const activeNav = ref('hero')
+
 // 主题
 const isDarkMode = ref(false)
 
@@ -73,18 +106,39 @@ const toggleDarkMode = () => {
     isDarkMode.value = !isDarkMode.value
 }
 
+// 移动端下拉菜单
+const handleMobileCommand = (command) => {
+    if (command === 'toggle-theme') {
+        toggleDarkMode()
+        return
+    }
+    goTo(command)
+}
+
 // 锚点跳转
 const goTo = (id) => {
+    activeNav.value = id
     const el = document.getElementById(id)
     if (el && id === 'hero') {
-        // 获取元素到页面顶部的距离
-        const top = el.getBoundingClientRect().top + window.pageYOffset - 80 // 80 是导航栏高度
+        const top = el.getBoundingClientRect().top + window.pageYOffset - 80
         window.scrollTo({
             top: top,
             behavior: 'smooth'
         })
     } else if (el) {
         el.scrollIntoView({ behavior: 'smooth' })
+    }
+}
+
+// 滚动时同步当前导航
+const syncActiveNav = () => {
+    const scrollPos = window.scrollY + 100
+    for (let i = navLinks.length - 1; i >= 0; i--) {
+        const el = document.getElementById(navLinks[i].id)
+        if (el && el.offsetTop <= scrollPos) {
+            activeNav.value = navLinks[i].id
+            break
+        }
     }
 }
 
@@ -101,6 +155,8 @@ watch(isDarkMode, (dark) => {
 
 // 滚动显示模块
 const onScroll = () => {
+    syncActiveNav()
+
     const check = (id, key) => {
         const el = document.getElementById(id)
         if (!el) return
@@ -192,6 +248,25 @@ onUnmounted(() => {
             justify-content: center;
             gap: 30px;
         }
+
+        .nav-mobile {
+            display: none;
+        }
+
+        .nav-dropdown-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            color: #64748b;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
     }
 
     /* 明暗切换 */
@@ -258,6 +333,53 @@ onUnmounted(() => {
     padding: 0 20px;
     position: relative;
     z-index: 2;
+}
+
+@media (max-width: 968px) {
+    .up-btns .mode-hello {
+        left: 12px;
+        top: 28px;
+    }
+
+    .up-btns .mode-hello h2 {
+        font-size: 14px;
+        max-width: calc(100vw - 80px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .up-btns .mode-btns {
+        top: 22px;
+        right: 12px;
+        left: auto;
+        transform: none;
+    }
+
+    .up-btns .mode-btns .nav-desktop {
+        display: none;
+    }
+
+    .up-btns .mode-btns .nav-mobile {
+        display: inline-flex;
+    }
+
+    .up-btns .mode-toggle-desktop {
+        display: none;
+    }
+
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        align-items: flex-start;
+        padding: 88px 12px 32px;
+    }
+}
+
+:deep(.el-dropdown-menu__item.is-active) {
+    color: #4f46e5;
+    font-weight: 600;
+    background-color: rgba(79, 70, 229, 0.08);
 }
 
 @keyframes blink {
