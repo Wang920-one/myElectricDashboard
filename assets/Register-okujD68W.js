@@ -1,1 +1,0 @@
-import{l as e}from"./index-DVpkLN12.js";var t={};function n(e,t){return`注册`}var r=e(t,[[`render`,n]]);export{r as default};
