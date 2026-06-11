@@ -1,0 +1,153 @@
+/* =============================================
+ *  前端项目基础样式 base style.css
+ *  适用：PC端 + 移动端响应式
+ *  作者：通用模板
+ * ============================================= */
+
+/* 全局变量（方便统一修改主题） */
+:root {
+  --color-primary: #409eff;        /* 主色 */
+  --color-success: #67c23a;        /* 成功色 */
+  --color-warning: #e6a23c;        /* 警告色 */
+  --color-danger: #f56c6c;         /* 危险色 */
+  --color-text: #303133;           /* 主要文字 */
+  --color-text-regular: #606266;   /* 常规文字 */
+  --color-text-soft: #909399;      /* 次要文字 */
+  --color-bg: #f3f3f3;             /* 背景色 */
+  --color-border: #e4e7ed;         /* 边框色 */
+  --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --transition: all 0.3s ease;
+}
+
+/* 全局重置（清除浏览器默认样式） */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth; /* 平滑滚动 */
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 图片基础 */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border: none;
+}
+
+/* 链接 */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+a:hover {
+  color: #66b1ff;
+}
+
+/* 列表 */
+ul, ol {
+  list-style: none;
+}
+
+/* 按钮 */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  transition: var(--transition);
+}
+
+/* 输入框 */
+input, textarea, select {
+  font-family: inherit;
+  outline: none;
+  border: 1px solid var(--color-border);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+input:focus, textarea:focus {
+  border-color: var(--color-primary);
+}
+
+/* 标题统一 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* 通用布局 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* 清除浮动 */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* 弹性布局常用类 */
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 文本对齐 */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* 文本大小 */
+.text-sm { font-size: 12px; }
+.text-base { font-size: 14px; }
+.text-lg { font-size: 16px; }
+.text-xl { font-size: 18px; }
+
+/* 文本颜色 */
+.text-soft { color: var(--color-text-soft); }
+.text-primary { color: var(--color-primary); }
+
+/* 间距工具类（可按需增加） */
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+
+/* 圆角 */
+.rounded { border-radius: 4px; }
+.rounded-md { border-radius: 8px; }
+
+/* 隐藏 */
+.hidden { display: none; }
