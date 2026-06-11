@@ -1,0 +1,1 @@
+import{l as e}from"./index-BLce5aAZ.js";var t={};function n(e,t){return`注册`}var r=e(t,[[`render`,n]]);export{r as default};
