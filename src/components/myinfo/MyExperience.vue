@@ -1,96 +1,96 @@
 <template>
     <div class="home-container">
         <main class="main-layout">
-            <aside class="sidebar-card">
-                <div class="profile-info">
-                    <div class="avatar-wrapper">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200" alt="头像"
-                            class="my-avatar" />
-                    </div>
-                    <h1 class="user-name">王玉针</h1>
-                    <p class="user-meta">4年经验 | 27岁 | 本科</p>
-                    <p class="job-intent">🎯 意向岗位：Web 前端 / 数据可视化</p>
-                    <div class="status-badge">✅ 到岗状态：随时到岗</div>
-                    <button class="resume-btn">个人简历 ⬇️</button>
-                </div>
+            <section class="content-grid">
 
-                <hr class="divider" />
-
-                <div class="skills-section">
-                    <div v-for="(group, index) in skillGroups" :key="index" class="skill-group">
-                        <h3 class="skill-title">{{ group.title }}</h3>
-                        <div class="tag-container">
-                            <span v-for="tag in group.tags" :key="tag" class="skill-tag">
-                                {{ tag }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <section class="content-area">
+                <!-- 学习心得 -->
                 <div class="content-card">
-                    <h2 class="section-main-title">🌟 个人优势</h2>
-                    <ul class="advantage-list">
-                        <li><strong>3年工业数字化前端深耕：</strong> 具备独立负责大型项目全流程开发能力，注重交付质量。</li>
-                        <li><strong>前沿可视化/3D扎实：</strong> 精通 ECharts、DataV，熟练掌握 Three.js 数字孪生厂区交互与坐标转换。</li>
-                        <li><strong>跨端与硬件交互：</strong> 熟练运用 UniApp 进行多端开发，具备 NFC、语音播报等工业级硬件对接经验。</li>
-                        <li><strong>极强自驱与无断层自学：</strong> 离职期间高标准自学 Vue3+TS+Vite 生态，并有完整大屏 Demo 产出。</li>
-                        <li><strong>团队赋能：</strong> 具备良好的代码规范意识，善于封装高复用业务组件，提升团队迭代效率。</li>
-                    </ul>
+                    <h2 class="section-main-title">📚 学习心得</h2>
+                    <div class="card-scroll">
+                        <div class="note-list">
+                            <a
+                                v-for="note in notes"
+                                :key="note.title"
+                                :href="note.url"
+                                class="note-item"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                @click="handleLinkClick($event, note.url)"
+                            >
+                                <div class="note-main">
+                                    <span class="note-title">{{ note.title }}</span>
+                                    <div class="note-meta">
+                                        <span class="time-range">{{ note.date }}</span>
+                                        <span
+                                            v-for="tag in note.tags"
+                                            :key="tag"
+                                            class="skill-tag skill-tag-sm"
+                                        >
+                                            {{ tag }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="note-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- 兴趣爱好 -->
                 <div class="content-card">
-                    <h2 class="section-main-title">💼 工作经历</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-header">
-                                <span class="time-range">2021.07 - 2024.10</span>
-                                <span class="company">珠海优特电力科技股份有限公司</span>
-                                <span class="role">PC 软件工程师（前端方向）</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="project-name"><strong>核心项目：</strong>安全管控一体化平台 (Web端 / 移动端 / UniApp)</p>
-                                <p class="project-desc">
-                                    <strong>项目简介：</strong>面向电力及工业场景，集成智能巡检、电子工作票、智能锁控、安防监控为一体的综合数字化安全管理系统。
-                                </p>
-                                <ul class="achievement-list">
-                                    <li><strong>架构与性能优化：</strong>主导前端核心架构搭建与选型（Vue2/3+ElementUI），针对大体量场景引入组件懒加载、Web
-                                        Worker多线程计算等方案，大幅提升首屏加载速度。</li>
-                                    <li><strong>3D数字孪生：</strong>利用 <strong>Three.js</strong> 深度定制 3D
-                                        智慧厂区，通过低多边形优化与纹理压缩攻克大模型卡顿难题，实现动态模型精准定位与坐标高效转换。</li>
-                                    <li><strong>数据可视化：</strong>独立负责大屏模块，基于 ECharts/DataV
-                                        深度定制多类动态图表，设计本地数据缓存与增量更新机制，解决高频刷新下的卡顿。</li>
-                                    <li><strong>移动端与硬件交互：</strong>基于 UniApp 独立研发外勤 App，深度对接硬件层，集成 NFC
-                                        标签识别、离线语音播报等特种作业功能。</li>
-                                </ul>
+                    <h2 class="section-main-title">🎬 兴趣爱好</h2>
+                    <div class="card-scroll">
+                        <div class="hobby-grid">
+                            <div v-for="hobby in hobbies" :key="hobby.name" class="hobby-card">
+                                <span class="hobby-icon">{{ hobby.icon }}</span>
+                                <h3 class="hobby-name">{{ hobby.name }}</h3>
+                                <p class="hobby-desc">{{ hobby.desc }}</p>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-header">
-                                <span class="time-range">2025.06 - 2025.09</span>
-                                <span class="company">澳门江门同乡会</span>
-                                <span class="role">新媒体运营（兼职/视觉赋能）</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="project-desc">负责数字化活动视觉策划、短视频剪辑及公众号矩阵宣发。保持良好职场节奏，跨界锻炼了优秀的视觉审美与排版布局能力，并成功反哺到前端
-                                    UI/UX 的细节把控中。</p>
-                            </div>
+                <!-- 博客与链接 -->
+                <div class="content-card">
+                    <h2 class="section-main-title">🔗 博客与链接</h2>
+                    <div class="card-scroll">
+                        <div class="link-list">
+                            <a
+                                v-for="link in blogLinks"
+                                :key="link.name"
+                                :href="link.url"
+                                class="link-item"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                @click="handleLinkClick($event, link.url)"
+                            >
+                                <span class="link-icon">{{ link.icon }}</span>
+                                <div class="link-info">
+                                    <span class="link-name">{{ link.name }}</span>
+                                    <span class="link-desc">{{ link.desc }}</span>
+                                </div>
+                                <span class="link-arrow">→</span>
+                            </a>
                         </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-header">
-                                <span class="time-range">2025.10 - 至今</span>
-                                <span class="company">🛠️ 独立项目与技术进阶展示</span>
-                                <span class="role">前沿技术深耕</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="project-desc">全面采用 <strong>Vue3 Composition API + TypeScript + Vite +
-                                        Pinia</strong> 重构并独立设计了一套全新的电力可视化全景看板系统，确保自身技术栈与一线无缝衔接。无技术断层，具备即战力。</p>
+                    </div>
+                </div>
+                
+                <!-- 最近在想什么 -->
+                <div class="content-card">
+                    <h2 class="section-main-title">💭 最近在想什么</h2>
+                    <div class="card-scroll">
+                        <div class="thought-timeline">
+                            <div
+                                v-for="item in thoughts"
+                                :key="item.date + item.title"
+                                class="thought-item"
+                            >
+                                <div class="thought-dot"></div>
+                                <div class="thought-header">
+                                    <span class="time-range">{{ item.date }}</span>
+                                    <span class="thought-title">{{ item.title }}</span>
+                                </div>
+                                <p class="thought-content">{{ item.content }}</p>
                             </div>
                         </div>
                     </div>
@@ -103,413 +103,499 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// 技能标签数据结构
-interface SkillGroup {
+interface Thought {
+    date: string
     title: string
-    tags: string[]
+    content: string
 }
 
-const skillGroups = ref<SkillGroup[]>([
-    { title: '🌐 前端开发', tags: ['Vue2', 'Vue3', 'JavaScript', 'TypeScript', 'ElementUI', 'HTML5'] },
-    { title: '📊 可视化 / 3D', tags: ['ECharts', 'DataV', 'Three.js', 'WebGL'] },
-    { title: '📱 跨端开发', tags: ['UniApp', 'React', 'Java', '微信小程序'] },
-    { title: '🎬 多媒体创作', tags: ['剪映', '无人机航拍', 'PR', 'PS', '相机摄影'] }
+interface Note {
+    title: string
+    tags: string[]
+    date: string
+    url: string
+}
+
+interface Hobby {
+    icon: string
+    name: string
+    desc: string
+}
+
+interface BlogLink {
+    icon: string
+    name: string
+    desc: string
+    url: string
+}
+
+const thoughts = ref<Thought[]>([
+    {
+        date: '2025.11',
+        title: '关于「前端 + 视觉」的交叉',
+        content:
+            '做新媒体运营后，发现排版和留白意识反而提升了写组件的直觉。技术实现和视觉表达并不是两条平行线，而是可以互相滋养的。',
+    },
+    {
+        date: '2025.09',
+        title: '自学 Vue3 的几点体会',
+        content:
+            'Composition API 真正有价值的是逻辑复用，而不是语法新。把业务按功能拆成 composable，比按选项类型堆代码清晰得多。',
+    },
+    {
+        date: '2025.06',
+        title: '离职间隙的思考',
+        content:
+            '空白期不是断层，而是主动升级窗口。用项目驱动学习，比单纯刷文档更有动力，也更容易沉淀成可展示的成果。',
+    },
 ])
 
-// 动态生成背景星星的样式（利用自驱函数模拟微光闪烁）
-const generateStarStyle = (index: number) => {
-    const top = Math.random() * 100
-    const left = Math.random() * 100
-    const duration = 3 + Math.random() * 4
-    const delay = Math.random() * 2
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        animationDuration: `${duration}s`,
-        animationDelay: `${delay}s`
+const notes = ref<Note[]>([
+    {
+        title: 'Vue3 响应式原理梳理',
+        tags: ['Vue3', '源码'],
+        date: '2025-10',
+        url: '#',
+    },
+    {
+        title: 'Three.js 大模型性能优化实践',
+        tags: ['Three.js', '3D'],
+        date: '2025-08',
+        url: '#',
+    },
+    {
+        title: 'ECharts 高频刷新下的性能方案',
+        tags: ['ECharts', '可视化'],
+        date: '2025-07',
+        url: '#',
+    },
+    {
+        title: 'UniApp 与工业硬件交互踩坑记录',
+        tags: ['UniApp', '跨端'],
+        date: '2024-12',
+        url: '#',
+    },
+])
+
+const hobbies = ref<Hobby[]>([
+    {
+        icon: '🎥',
+        name: '短视频剪辑',
+        desc: '活动记录、旅拍 vlog，用剪映和 PR 完成从素材到成片的完整流程。',
+    },
+    {
+        icon: '📷',
+        name: '无人机航拍',
+        desc: '喜欢用航拍视角记录城市与风光，也在练习构图与运镜节奏。',
+    },
+    {
+        icon: '🎨',
+        name: '视觉排版',
+        desc: '新媒体运营经历锻炼了排版直觉，反哺到前端 UI / UX 的细节把控。',
+    },
+    {
+        icon: '📚',
+        name: '阅读与输出',
+        desc: '习惯把学到的东西整理成笔记，逼自己把模糊的理解说清楚。',
+    },
+])
+
+const blogLinks = ref<BlogLink[]>([
+    {
+        icon: '📝',
+        name: '个人博客',
+        desc: '技术文章与学习记录（筹备中）',
+        url: '#',
+    },
+    {
+        icon: '🐙',
+        name: 'GitHub',
+        desc: '开源项目与 Demo 仓库',
+        url: 'https://github.com',
+    },
+    {
+        icon: '💎',
+        name: '掘金主页',
+        desc: '零散技术笔记与阅读摘要',
+        url: 'https://juejin.cn',
+    },
+    {
+        icon: '🎬',
+        name: '创作作品集',
+        desc: '短视频与视觉作品合集（筹备中）',
+        url: '#',
+    },
+])
+
+const handleLinkClick = (event: MouseEvent, url: string) => {
+    if (!url || url === '#') {
+        event.preventDefault()
     }
 }
 </script>
 
 <style lang="scss" scoped>
-/* ==========================================================================
-   1. 基础布局与梦幻背景机制
-   ========================================================================== */
 .home-container {
-    width: 100%;
-    display: flex;
-    height: 100%;
+    width: 92%;
+    max-width: 1440px;
+    margin: 0 auto;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    position: relative;
-    overflow: hidden;
-    justify-content: center;
-}
-
-/* 装饰性闪烁微光 */
-.bg-stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.star {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background-color: rgba(99, 102, 241, 0.4);
-    border-radius: 50%;
-    filter: blur(1px);
-    animation: blink infinite ease-in-out;
-}
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 0.2;
-        transform: scale(0.8);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.4);
-        filter: drop-shadow(0 0 4px rgba(99, 102, 241, 0.8));
-    }
-}
-
-/* ==========================================================================
-   3. 双栏网格响应式架构
-   ========================================================================== */
-@media (min-width: 1400px) {
-    .main-layout {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: 2.5rem;
-        align-items: start;
-        max-width: 1440px;
-        /* 黄金视觉宽度：防止在 2K/4K 屏上被无限拉长 */
-        width: 100%;
-        box-sizing: border-box;
-    }
+    padding: 0 2%;
+    box-sizing: border-box;
 }
 
 .main-layout {
+    width: 100%;
+}
+
+/* 四宫格 — 宽高按视口百分比 */
+.content-grid {
     display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 2.5rem;
-    margin-top: 2rem;
-    align-items: start;
-}
-
-/* 玻璃拟态卡片公共样式 */
-.glass-effect {
-    background: rgba(255, 255, 255, 0.205);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
-}
-
-/* ==========================================================================
-   4. 左侧名片区 (Sidebar)
-   ========================================================================== */
-.sidebar-card {
-    /* extend: .glass-effect; */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
-    background: rgba(255, 255, 255, 0.123);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    padding: 2rem 1.5rem;
-    text-align: center;
-}
-
-.avatar-wrapper {
-    width: 110px;
-    height: 110px;
-    margin: 0 auto 1.2rem auto;
-    border-radius: 50%;
-    padding: 4px;
-    background: linear-gradient(135deg, #a5b4fc, #e0e7ff);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-}
-
-.my-avatar {
+    grid-template-columns: repeat(2, 48%);
+    grid-template-rows: repeat(2, 46%);
+    justify-content: space-between;
+    align-content: space-between;
+    gap: 2%;
     width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.user-name {
-    font-size: 1.6rem;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-    letter-spacing: 2px;
-}
-
-.user-meta {
-    font-size: 0.85rem;
-    color: #64748b;
-    margin-bottom: 1rem;
-}
-
-.job-intent {
-    font-size: 0.88rem;
-    color: #475569;
-    background: rgba(239, 246, 255, 0.6);
-    padding: 0.4rem;
-    border-radius: 6px;
-    margin-bottom: 0.6rem;
-}
-
-.status-badge {
-    display: inline-block;
-    font-size: 0.8rem;
-    color: #16a34a;
-    background: rgba(240, 253, 250, 0.8);
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-weight: 500;
-}
-
-.resume-btn {
-    width: 100%;
-    margin-top: 1.2rem;
-    padding: 0.6rem;
-    border: none;
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
-    color: white;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
-}
-
-.resume-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
-}
-
-.divider {
-    border: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.06), transparent);
-    margin: 1.5rem 0;
-}
-
-/* 技能标签交互设计 */
-.skill-group {
-    text-align: left;
-    margin-bottom: 1.2rem;
-}
-
-.skill-title {
-    font-size: 0.88rem;
-    color: #475569;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.tag-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-}
-
-.skill-tag {
-    font-size: 0.78rem;
-    background: rgba(255, 255, 255, 0.8);
-    color: #475569;
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    transition: all 0.25s ease;
-    cursor: default;
-}
-
-.skill-tag:hover {
-    background: #4f46e5;
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.15);
-    border-color: #4f46e5;
-}
-
-/* ==========================================================================
-   5. 右侧主内容区 (Content Area)
-   ========================================================================== */
-.content-area {
-    display: flex;
-    flex-direction: column;
-    gap: 1.8rem;
-    height: 100%;
-    overflow-y: auto;
-    text-align: left;
-}
-
-.content-area::-webkit-scrollbar {
-    width: 5px;
-}
-
-.content-area::-webkit-scrollbar-track {
-    background: #eeeeeec4;
-}
-
-.content-area::-webkit-scrollbar-thumb {
-    background: #646464cb;
-    border-radius: 5px;
+    height: 88vh;
+    min-height: 560px;
+    max-height: 920px;
 }
 
 .content-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 16px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
     background: rgba(255, 255, 255, 0.185);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
     padding: 2rem;
+    overflow: hidden;
+}
+
+.card-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(100, 100, 100, 0.25);
+        border-radius: 4px;
+    }
 }
 
 .section-main-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: #1e293b;
     margin-bottom: 1.2rem;
+    flex-shrink: 0;
     position: relative;
     padding-bottom: 0.4rem;
-}
 
-.section-main-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 35px;
-    height: 3px;
-    background: #4f46e5;
-    border-radius: 2px;
-}
-
-/* 个人优势列表 */
-.advantage-list {
-    padding-left: 1.2rem;
-}
-
-.advantage-list li {
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: #475569;
-    margin-bottom: 0.6rem;
-}
-
-/* ==========================================================================
-   6. 高级工作经历时间线 (Timeline)
-   ========================================================================== */
-.timeline {
-    position: relative;
-    padding-left: 1.5rem;
-    border-left: 2px solid rgba(203, 213, 225, 0.6);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 2rem;
-}
-
-.timeline-item:last-child {
-    margin-bottom: 0;
-}
-
-.timeline-dot {
-    position: absolute;
-    left: calc(-1.5rem - 6px);
-    top: 4px;
-    width: 10px;
-    height: 10px;
-    background: #4f46e5;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-}
-
-.timeline-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.8rem;
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 35px;
+        height: 3px;
+        background: #4f46e5;
+        border-radius: 2px;
+    }
 }
 
 .time-range {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 600;
     background: rgba(79, 70, 229, 0.08);
     color: #4f46e5;
-    padding: 0.2rem 0.6rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 4px;
+    white-space: nowrap;
 }
 
-.company {
-    font-size: 0.98rem;
+.skill-tag {
+    font-size: 0.72rem;
+    background: rgba(255, 255, 255, 0.8);
+    color: #475569;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.skill-tag-sm {
+    font-size: 0.68rem;
+}
+
+/* 想法时间线 */
+.thought-timeline {
+    position: relative;
+    padding-left: 1.2rem;
+    border-left: 2px solid rgba(203, 213, 225, 0.6);
+}
+
+.thought-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.thought-dot {
+    position: absolute;
+    left: calc(-1.2rem - 5px);
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    background: #4f46e5;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.thought-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+}
+
+.thought-title {
+    font-size: 0.95rem;
     font-weight: 700;
     color: #1e293b;
 }
 
-.role {
-    font-size: 0.88rem;
-    color: #64748b;
-    font-weight: 500;
-}
-
-.timeline-body {
+.thought-content {
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.7;
     color: #475569;
 }
 
-.project-name,
-.project-desc {
-    margin-bottom: 0.4rem;
+/* 学习笔记 */
+.note-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.achievement-list {
-    padding-left: 1.2rem;
-    margin-top: 0.5rem;
+.note-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+
+    &:hover {
+        background: rgba(79, 70, 229, 0.06);
+        border-color: rgba(79, 70, 229, 0.25);
+
+        .note-arrow {
+            color: #4f46e5;
+        }
+    }
 }
 
-.achievement-list li {
-    margin-bottom: 0.4rem;
-    color: #576574;
+.note-main {
+    flex: 1;
+    min-width: 0;
 }
 
-/* ==========================================================================
-   7. 响应式布局媒体查询（确保移动端完美适配）
-   ========================================================================== */
+.note-title {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+}
+
+.note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.note-arrow {
+    font-size: 1rem;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+/* 兴趣（卡片内单列） */
+.hobby-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.hobby-card {
+    padding: 0.75rem 0.85rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    transition: all 0.25s ease;
+
+    &:hover {
+        border-color: rgba(79, 70, 229, 0.2);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.06);
+    }
+}
+
+.hobby-icon {
+    font-size: 1.3rem;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.hobby-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.hobby-desc {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #64748b;
+}
+
+/* 链接列表 */
+.link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.link-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.65rem 0.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba(226, 232, 240, 0.45);
+    }
+
+    &:hover {
+        background: rgba(79, 70, 229, 0.06);
+
+        .link-arrow {
+            color: #4f46e5;
+        }
+    }
+}
+
+.link-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.link-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.link-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.link-desc {
+    font-size: 0.82rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.link-arrow {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+/* 响应式 */
 @media (max-width: 968px) {
     .home-container {
-        padding: 0 1.5rem 2rem 1.5rem;
+        width: 100%;
+        padding: 0 3% 2rem;
     }
 
-    .main-layout {
+    .content-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        grid-template-rows: auto;
+        justify-content: stretch;
+        align-content: stretch;
+        gap: 1.2rem;
+        height: auto;
+        min-height: unset;
+        max-height: none;
     }
 
-    .nav-links {
-        display: none;
-        /* 移动端可以考虑折叠或隐藏次要导航 */
+    .content-card {
+        height: auto;
+        min-height: 280px;
+        max-height: none;
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .home-container {
+        padding: 0 10px 1.5rem;
+    }
+
+    .content-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .section-main-title {
+        font-size: 1rem;
+    }
+
+    .thought-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+}
+
+@media (hover: none) {
+    .hobby-card:hover,
+    .note-item:hover {
+        transform: none;
     }
 }
 </style>
