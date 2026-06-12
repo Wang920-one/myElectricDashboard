@@ -1,1 +1,0 @@
-import{T as e,h as t,l as n,v as r}from"./index-BUjzs2z6.js";var i={};function a(n,i){return e(),r(`div`,null,[...i[0]||=[t(`h1`,null,`控制台`,-1)]])}var o=n(i,[[`render`,a]]);export{o as default};
