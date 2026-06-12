@@ -33,11 +33,11 @@ const demoList = [
         intro: '依托Three.js搭建三维仿真场景，支持视角拖拽缩放、设备点位标注，实现工业园区可视化漫游交互',
         componentName: ThreeScene
     },
-    {
-        id: 3, title: 'UniApp跨端功能模块',
-        intro: '移动端业务页面复刻，实现表单录入、离线缓存、基础硬件交互逻辑，兼容多端运行逻辑',
-        componentName: MobileModule
-    }
+    // {
+    //     id: 3, title: 'UniApp跨端功能模块',
+    //     intro: '移动端业务页面复刻，实现表单录入、离线缓存、基础硬件交互逻辑，兼容多端运行逻辑',
+    //     componentName: MobileModule
+    // }
 ]
 </script>
 
@@ -95,6 +95,8 @@ const demoList = [
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        overflow: hidden;
     }
 
     /* 走马灯指示器优化 */

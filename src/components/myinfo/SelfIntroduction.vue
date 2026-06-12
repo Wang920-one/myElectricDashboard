@@ -30,14 +30,14 @@
               </span>
             </div>
           </div>
-          <div class="skill-group">
+          <!-- <div class="skill-group">
             <h3 class="skill-title">🎯 AI网站项目</h3>
             <div class="tag-container">
               <span class="skill-tag" @click="router.push('/auth/login')">
                 点击查看详情</span
               >
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="typewriter-box">
