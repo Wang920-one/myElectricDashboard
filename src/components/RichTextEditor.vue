@@ -100,18 +100,24 @@ const editorConfig = reactive({
             ]
         },
         fontFamily: {
-            fontFamilyList: [
-                { name: '默认', value: '' },
-                { name: '宋体', value: 'SimSun, Songti SC, NSimSun, STSong, "Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '黑体', value: 'SimHei, Heiti SC, NSimHei, "Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '微软雅黑', value: '"Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '楷体', value: 'KaiTi, "Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '仿宋', value: 'FangSong, "Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '华文行楷', value: '"STXingkai", "Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '华文隶书', value: '"STLiti", "Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '华文新魏', value: '"STXinwei", "Microsoft YaHei", Helvetica, Arial, sans-serif' },
-                { name: '华文彩云', value: '"STCaiyun", "Microsoft YaHei", Helvetica, Arial, sans-serif' },
+            fontFamilyList: ['Arial', 'Courier New', 'Georgia', 'Times New Roman', 'Verdana', 'Microsoft YaHei', 'SimSun', 'SimHei']
+        },
+        color: {
+            colors: [
+                '#000000', '#333333', '#666666', '#999999', '#CCCCCC', '#FFFFFF',
+                '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF',
+                '#800000', '#008000', '#000080', '#808000', '#800080', '#008080'
             ]
+        },
+        bgColor: {
+            colors: [
+                '#FFFFFF', '#FFCCCC', '#CCFFCC', '#CCCCFF', '#FFFFCC', '#FFCCFF', '#CCFFFF',
+                '#000000', '#333333', '#666666', '#999999', '#CCCCCC',
+                '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'
+            ]
+        },
+        lineHeight: {
+            lineHeightList: ['1', '1.5', '2', '2.5', '3']
         }
     }
 })

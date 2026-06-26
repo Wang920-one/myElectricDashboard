@@ -36,25 +36,28 @@
             <el-table-column label="操作" width="250" fixed="right">
                 <template #default="scope">
                     <el-button text type="primary" size="small" @click="handleEdit(scope.row)">编辑</el-button>
-                    <el-button v-if="scope.row.status === 0 || scope.row.status === 2" text type="success"
-                        size="small">发布</el-button>
-                    <el-button v-if="scope.row.status === 1" text type="warning" size="small">下线</el-button>
-                    <el-button text type="danger" size="small">删除</el-button>
+                    <el-button v-if="scope.row.status === 0 || scope.row.status === 2" text type="success" size="small"
+                        @click="handlePublish(scope.row)">发布</el-button>
+                    <el-button v-if="scope.row.status === 1" text type="warning" size="small"
+                        @click="handleUnpublish(scope.row)">下线</el-button>
+                    <el-button text type="danger" size="small" @click="handleDelete(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination style="margin-top: 20px" layout="prev, pager, next" :page-size="pagination.size"
             :total="pagination.total" @change="handleChange" />
-        <ArticalDialog v-model:modelValue="dialogVisible" :article="currentArticle" :categories="categories" @success="handleSuccess"/>
+        <ArticalDialog v-model:modelValue="dialogVisible" :article="currentArticle" :categories="categories"
+            @success="handleSuccess" />
     </div>
 </template>
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import PageHead from "@/components/PageHead.vue";
 import TableSearch from "@/components/TableSearch.vue";
-import { categoryTree, getArticlePage, getArticleDetail } from "@/api/admin";
+import { categoryTree, getArticlePage, getArticleDetail, changeArticleStatus, deleteArticle } from "@/api/admin";
 import { it } from "element-plus/es/locales.mjs";
 import ArticalDialog from "@/components/ArticalDialog.vue";
+import { ElMessageBox,ElMessage } from "element-plus";
 
 const formItem = [
     {
@@ -85,20 +88,71 @@ const formItem = [
 const dialogVisible = ref(false);
 const currentArticle = ref(null);
 
-const handleEdit = (row) =>{
+//编辑
+const handleEdit = (row) => {
     console.log('row')
-    if(row && row.id){
-        getArticleDetail(row.id).then(data =>{
+    if (row && row.id) {
+        getArticleDetail(row.id).then(data => {
             console.log('文章详情', data)
             currentArticle.value = data
             dialogVisible.value = true
         })
-    }else{
+    } else {
         //新增
         console.warn('无效的文章数据')
         currentArticle.value = null
         dialogVisible.value = true
     }
+}
+
+//发布
+const handlePublish = (row) => {
+    ElMessageBox.confirm('确定要发布该文章吗？', '确定', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'info',
+    }).then(() => {
+        //调用发布接口
+        changeArticleStatus(row.id, { status: 1 }).then(() => {
+            ElMessage.success('发布成功')
+            handleSearch()
+        })
+    }).catch(() => {
+        console.log('取消发布')
+    });
+}
+
+//下线
+const handleUnpublish = (row) => {
+    ElMessageBox.confirm('确定要下线该文章吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+    }).then(() => {
+        //调用下线接口
+        changeArticleStatus(row.id, { status: 2 }).then(() => {
+            ElMessage.success('下线成功')
+            handleSearch()
+        })
+    }).catch(() => {
+        console.log('取消下线')
+    });
+}
+
+//删除
+const handleDelete = (row) => {
+    ElMessageBox.confirm('确定要删除该文章吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'danger',
+    }).then(() => {
+        deleteArticle(row.id).then(() => {
+            ElMessage.success('删除成功')
+            handleSearch()
+        })
+    }).catch(() => {
+        console.log('取消删除')
+    });
 }
 
 //分页参数
@@ -109,7 +163,6 @@ const pagination = reactive({
 })
 
 const handleSearch = async (formData) => {
-    console.log("搜索条件", formData)
 
     const params = {
         ...pagination,
@@ -121,7 +174,6 @@ const handleSearch = async (formData) => {
     tableData.value = records
     pagination.total = total
 
-    console.log("文章列表", data)
 };
 
 const handleChange = (page) => {

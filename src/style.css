@@ -45,7 +45,7 @@ img {
   max-width: 100%;
   height: auto;
   vertical-align: middle;
-  border: none;
+  border: none !important;
 }
 
 /* 链接 */

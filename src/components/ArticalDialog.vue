@@ -34,8 +34,9 @@
                 </div>
             </el-form-item>
             <el-form-item label="文章内容" prop="content">
-                <rich-text-editor v-model="formData.content" placeholder="请输入文章内容..." :max-char-count="5000"
-                    @change="handleContentChange" @created="handleEditorCreated" min-height="400px" />
+                <RichTextEditor v-model="formData.content" placeholder="请输入文章内容...支持富文本格式 可以使用加粗、斜体等样式"
+                    :maxCharCount="5000" @change="handleContentChange" @created="handleEditorCreated"
+                    min-height="400px" />
             </el-form-item>
         </el-form>
         <div v-if="btnPreview">

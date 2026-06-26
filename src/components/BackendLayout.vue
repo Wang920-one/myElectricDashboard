@@ -25,7 +25,7 @@ import Navbar from "./Navbar.vue";
     .content-container {
       padding: 20px;
       background-color: #fff;
-      height: 100%;
+      // height: 100%;
     }
   }
   .el-header {
